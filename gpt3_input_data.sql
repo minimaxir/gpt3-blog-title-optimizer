@@ -26,12 +26,22 @@ WITH
     base_table
   WHERE
     RAND() < (SELECT COUNT(*) FROM stories_gte100) / ((SELECT COUNT(*) FROM base_table) - (SELECT COUNT(*) FROM stories_gte100))
-    AND score < 100 )
+    AND score < 100 ),
+  combined_tables AS (
+  SELECT
+    *
+  FROM
+    stories_gte100
+  UNION ALL (
+    SELECT
+      *
+    FROM
+      stories_lt100_downsampled) )
 SELECT
-  *
+  CONCAT("Title: ", title) AS prompt,
+IF
+  (score >= 100,
+    " positive",
+    " negative") AS completion
 FROM
-  stories_gte100
-UNION ALL
-  (SELECT * FROM stories_lt100_downsampled)
-ORDER BY
-  score DESC
+  combined_tables
