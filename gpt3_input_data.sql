@@ -9,7 +9,9 @@ WITH
     type = "story"
     AND score >= 10
     AND url IS NOT NULL
-    AND timestamp BETWEEN "2021-08-01" AND "2022-08-01" ),
+    AND timestamp BETWEEN "2021-08-01" AND "2022-08-01"
+    AND NOT REGEXP_CONTAINS(title, r"^Show HN")
+    AND NOT REGEXP_CONTAINS(url, r"github.com") ),
   stories_gte100 AS (
   SELECT
     *
