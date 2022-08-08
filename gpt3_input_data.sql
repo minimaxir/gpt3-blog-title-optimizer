@@ -18,10 +18,20 @@ WITH
   FROM
     base_table
   WHERE
-    score >= 100 )
+    score >= 100 ),
+  stories_lt100_downsampled AS (
+  SELECT
+    *
+  FROM
+    base_table
+  WHERE
+    RAND() < (SELECT COUNT(*) FROM stories_gte100) / ((SELECT COUNT(*) FROM base_table) - (SELECT COUNT(*) FROM stories_gte100))
+    AND score < 100 )
 SELECT
   *
 FROM
   stories_gte100
+UNION ALL
+  (SELECT * FROM stories_lt100_downsampled)
 ORDER BY
   score DESC
