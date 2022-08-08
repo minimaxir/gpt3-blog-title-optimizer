@@ -25,7 +25,7 @@ WITH
     score >= score_threshold ),
   -- Balance the resulting dataset by selecting a (roughly) equal amount of bad posts.
   -- There are two SQL approaches to sampling N rows randomly from a dataset:
-  -- 1) ORDER BY RAND() LIMIT N, which is more common but O(nlogn) time and may not scale to HN-sized data
+  -- 1) ORDER BY RAND() LIMIT N, which is more common but O(nlogn) time and may not be futureproof
   -- 2) RAND() < [proportion of good posts to bad posts], which is vectorized and effectively O(1) time
   -- Obviously #2 is better, but not pretty!
   stories_lt_downsampled AS (
