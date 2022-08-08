@@ -1,3 +1,5 @@
+DECLARE score_threshold INT64 DEFAULT 100;
+
 WITH
   base_table AS (
   SELECT
@@ -12,35 +14,35 @@ WITH
     AND timestamp BETWEEN "2021-08-01" AND "2022-08-01"
     AND NOT REGEXP_CONTAINS(title, r"^Show HN")
     AND NOT REGEXP_CONTAINS(url, r"github.com") ),
-  stories_gte100 AS (
+  stories_gte AS (
   SELECT
     *
   FROM
     base_table
   WHERE
-    score >= 100 ),
-  stories_lt100_downsampled AS (
+    score >= score_threshold ),
+  stories_lt_downsampled AS (
   SELECT
     *
   FROM
     base_table
   WHERE
-    RAND() < (SELECT COUNT(*) FROM stories_gte100) / ((SELECT COUNT(*) FROM base_table) - (SELECT COUNT(*) FROM stories_gte100))
-    AND score < 100 ),
+    RAND() < (SELECT COUNT(*) FROM stories_gte) / ((SELECT COUNT(*) FROM base_table) - (SELECT COUNT(*) FROM stories_gte))
+    AND score < score_threshold ),
   combined_tables AS (
   SELECT
     *
   FROM
-    stories_gte100
+    stories_gte
   UNION ALL (
     SELECT
       *
     FROM
-      stories_lt100_downsampled) )
+      stories_lt_downsampled) )
 SELECT
   CONCAT("Title: ", title) AS prompt,
 IF
-  (score >= 100,
+  (score >= score_threshold,
     " positive",
     " negative") AS completion
 FROM
