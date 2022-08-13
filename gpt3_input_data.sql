@@ -1,4 +1,4 @@
---Parameterize the score threshold between good/bad submissions in case we want to tweak it
+-- Parameterize the score threshold between good/bad submissions in case we want to tweak it
 DECLARE score_threshold INT64 DEFAULT 100;
 
 WITH
