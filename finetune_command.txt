@@ -1,0 +1,9 @@
+openai api fine_tunes.create \
+-t titles_train.jsonl \
+-v titles_valid.jsonl \
+-m "babbage" \
+--compute_classification_metrics \
+--classification_n_classes 2 \
+--classification_positive_class " good" \
+--n_epochs 4 \
+--batch_size 256
