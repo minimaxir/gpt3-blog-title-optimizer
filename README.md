@@ -2,6 +2,8 @@
 
 Python code for building a GPT-3 based technical blog post optimizer, given that the user provides their own OpenAI keys and resources.
 
+The Notebooks provided here are a proof-of-concept: to use them for yourself, you will need to finetune your own GPT-3 model as noted in my blog post.
+
 # App Review Compliance
 
 This repo is released under the [Open-source / Bring-Your-Own-Key applications](https://beta.openai.com/docs/usage-guidelines/open-source-bring-your-own-key-applications) provision of OpenAI's usage guidelines as the constraints make the results neither high-stakes nor disallowed.
