@@ -1,5 +1,7 @@
 # GPT-3 Blog Title Optimizer
 
+![](final_variant.png)
+
 Python code for building a GPT-3 based technical blog post optimizer, given that the user provides their own OpenAI keys and resources.
 
 The [walkthrough Notebook](gpt3_title_optimizer_walkthrough.ipynb) gives a technical explanation on how to interface with the GPT-3 API, with the [demo Notebook](gpt3_title_optimizer_demo.ipynb) providing more concrete examples of the optimizer in action.
