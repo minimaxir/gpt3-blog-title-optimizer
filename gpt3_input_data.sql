@@ -48,8 +48,8 @@ WITH
       *
     FROM
       stories_lt_downsampled) )
-SELECT
-  CONCAT("Title: ", title) AS prompt,
+SELECT DISTINCT
+  CONCAT("Title: ", title, " ->") AS prompt,
   IF (score >= score_threshold, " good", " bad") AS completion
 FROM
   combined_tables
